@@ -49,7 +49,9 @@ def gradient_descent(function_object, init_value, lr):
         iter_count += 1
         if np.abs(lr * gradient_x) < 1e-7 and np.abs(lr * gradient_y) < 1e-7:
             break
-    print('Iter is ', iter_count, ' the minimum value is ', cur_z)
+        if iter_count > 1e+7:
+            break
+    print('Iter is ', iter_count, ' the minimum value is ', cur_z, ' The point locate at ', cur_x, ' , ', cur_y)
     plot3D_line(np.asarray(xs), np.asarray(ys) ,np.asarray(zs))
 
 def plot3D_line(X, Y, Z):
@@ -67,6 +69,9 @@ def plot3D_line(X, Y, Z):
     # 绘制线型图
     ax.plot(X, Y, Z)
     ax.scatter(X, Y, Z)
+    ax.set_xlabel('x label', color='r')
+    ax.set_ylabel('y label', color='g')
+    ax.set_zlabel('z label', color='b')  # 给三个坐标轴注明
     # 显示图
     plt.show()
 
@@ -100,8 +105,11 @@ def generate_data_mesh():
 
 if __name__ == '__main__':
     # generate_data_mesh()
-    init_x = 0.
-    init_y = 0.
+    # init_x = 0.1
+    # init_y = 1
+    # lr = 0.01
+    init_x = 1.5
+    init_y = -1
     lr = 0.01
     function_object = function_z(init_x, init_y)
     gradient_descent(function_object, [init_x, init_y], lr)
